@@ -1,0 +1,6 @@
+{
+  "name": "Sanpython social media",
+  "description": "Sanpython social media - A real-time social platform with Instagram-style messaging, live map location sharing, stories, posts grid, and analytics overview.",
+  "requestFramePermissions": ["camera", "microphone", "geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,94 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Represents an active Instagram chat participant and their streaming location.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique Google user ID or email hash tag"
+        },
+        "name": {
+          "type": "string",
+          "description": "Full name"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["online", "offline"]
+        },
+        "isSharingLocation": {
+          "type": "boolean"
+        },
+        "location": {
+          "type": "object",
+          "properties": {
+            "lat": { "type": "number" },
+            "lng": { "type": "number" },
+            "accuracy": { "type": "number" },
+            "updatedAt": { "type": "number" }
+          },
+          "required": ["lat", "lng", "updatedAt"]
+        },
+        "lastSeen": {
+          "type": "number"
+        }
+      },
+      "required": ["id", "name", "email", "status", "isSharingLocation"]
+    },
+    "Message": {
+      "title": "Message",
+      "description": "Represents a physical chat bubble message with optional multimedia links.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "roomId": {
+          "type": "string"
+        },
+        "senderId": {
+          "type": "string"
+        },
+        "senderName": {
+          "type": "string"
+        },
+        "senderAvatar": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "mediaUrl": {
+          "type": "string",
+          "description": "Base64 or external hyperlinked image or video"
+        },
+        "mediaType": {
+          "type": "string",
+          "enum": ["image", "video"]
+        },
+        "timestamp": {
+          "type": "number"
+        }
+      },
+      "required": ["id", "roomId", "senderId", "senderName", "senderAvatar", "timestamp"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "Public and private user positions, status feeds, and user account metadata."
+    },
+    "rooms/{roomId}/messages/{messageId}": {
+      "schema": "Message",
+      "description": "Log of text-based and visual photo/video messages shared across direct rooms and public group chat channels."
+    }
+  }
+}
