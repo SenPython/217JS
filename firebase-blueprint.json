@@ -1,5 +1,29 @@
 {
   "entities": {
+    "LatLng": {
+      "title": "LatLng",
+      "description": "Geographical coordinates and accuracy status.",
+      "type": "object",
+      "properties": {
+        "lat": {
+          "type": "number",
+          "description": "Latitude position"
+        },
+        "lng": {
+          "type": "number",
+          "description": "Longitude position"
+        },
+        "accuracy": {
+          "type": "number",
+          "description": "Accuracy in meters"
+        },
+        "updatedAt": {
+          "type": "number",
+          "description": "Timestamp when location updated"
+        }
+      },
+      "required": ["lat", "lng", "updatedAt"]
+    },
     "User": {
       "title": "User",
       "description": "Represents an active Instagram chat participant and their streaming location.",
@@ -15,30 +39,30 @@
         },
         "email": {
           "type": "string",
-          "format": "email"
+          "format": "email",
+          "description": "User email address"
         },
         "avatar": {
-          "type": "string"
+          "type": "string",
+          "description": "Avatar image URL"
         },
         "status": {
           "type": "string",
-          "enum": ["online", "offline"]
+          "enum": ["online", "offline"],
+          "description": "User online connection status"
         },
         "isSharingLocation": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Whether coordinates sharing is enabled"
         },
         "location": {
           "type": "object",
-          "properties": {
-            "lat": { "type": "number" },
-            "lng": { "type": "number" },
-            "accuracy": { "type": "number" },
-            "updatedAt": { "type": "number" }
-          },
-          "required": ["lat", "lng", "updatedAt"]
+          "$ref": "#/entities/LatLng",
+          "description": "Current sharing location coordinates"
         },
         "lastSeen": {
-          "type": "number"
+          "type": "number",
+          "description": "Timestamp of the last active state"
         }
       },
       "required": ["id", "name", "email", "status", "isSharingLocation"]
@@ -49,22 +73,28 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "description": "Unique message identifier"
         },
         "roomId": {
-          "type": "string"
+          "type": "string",
+          "description": "Active chat room identifier"
         },
         "senderId": {
-          "type": "string"
+          "type": "string",
+          "description": "Sender user ID"
         },
         "senderName": {
-          "type": "string"
+          "type": "string",
+          "description": "Display name of sender"
         },
         "senderAvatar": {
-          "type": "string"
+          "type": "string",
+          "description": "Avatar URL of sender"
         },
         "text": {
-          "type": "string"
+          "type": "string",
+          "description": "Message textual content"
         },
         "mediaUrl": {
           "type": "string",
@@ -72,10 +102,12 @@
         },
         "mediaType": {
           "type": "string",
-          "enum": ["image", "video"]
+          "enum": ["image", "video"],
+          "description": "Type of attached media asset"
         },
         "timestamp": {
-          "type": "number"
+          "type": "number",
+          "description": "Timestamp when message sent"
         }
       },
       "required": ["id", "roomId", "senderId", "senderName", "senderAvatar", "timestamp"]
